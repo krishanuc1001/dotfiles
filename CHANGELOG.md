@@ -2,6 +2,11 @@ As documented in the README's [adopting](README.md#how-to-adoptcustomize-the-scr
 
 For those who follow this repo, here's the changelog for ease of adoption:
 
+### 1.1-5
+
+* *[.cshrc]* Removed empty file
+* *[.shellrc]* Re-aligned colors for the success, warn, debug and error functions
+
 ### 1.1-4
 
 * Simplify color output for scripts (avoid nesting) within the same line.

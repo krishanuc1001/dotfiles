@@ -231,6 +231,10 @@ if is_non_zero_string "${KEYBASE_USERNAME}"; then
     fi
     unset folder
 
+    # HACK: To fix issue where someone does not have any such 'DefaultProfile/chrome'.... (need to find a correct fix)
+    # otherwise, the next 'for' loop fails and errors out
+    mkdir -p "${PERSONAL_PROFILES_DIR}"/DummyProfile/Profiles/DefaultProfile/chrome
+
     for folder in "${PERSONAL_PROFILES_DIR}"/*Profile/Profiles/DefaultProfile/chrome; do
       # Setup the chrome repo's upstream if it doesn't already point to UPSTREAM_GH_USERNAME's repo
       add-upstream-git-config.sh "${folder}" "${UPSTREAM_GH_USERNAME}"

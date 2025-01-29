@@ -18,13 +18,13 @@ setup_login_item() {
 }
 
 replace_executable_if_exists_and_is_not_symlinked() {
-  is_executable "${2}" && echo "'$(yellow "${2}")' is already present and so skipping symlinking" && return
+  is_executable "${2}" && warn "skipping symlinking since '$(yellow "${2}")' is already present" && return
 
   if is_executable "${1}"; then
     rm -rf "${2}"
     ln -sf "${1}" "${2}"
   else
-    warn "executable '$(yellow "${1}")' not found and so skipping symlinking"
+    warn "skipping symlinking since executable '$(yellow "${1}")' not found"
   fi
 }
 
