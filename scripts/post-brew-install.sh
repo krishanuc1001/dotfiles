@@ -7,10 +7,14 @@
 type section_header &> /dev/null 2>&1 || source "${HOME}/.shellrc"
 
 setup_login_item() {
-  # TODO: Check if its possible to not run if the app is already present in the login items list
-  local app_path="/Applications/${1}"
+  local app_path="/Applications/${1}.app"
   if is_directory "${app_path}"; then
-    osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"${app_path}\", hidden:false}" 2>&1 > /dev/null && success "Successfully setup '$(yellow "${1}")' as a login item"
+    local found=$(osascript -e 'tell application "System Events" to get the name of every login item' | \grep -i "${1}")
+    if ! is_non_zero_string "${found}"; then
+      osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"${app_path}\", hidden:false}" 2>&1 > /dev/null
+      success "Successfully setup '$(yellow "${1}")' as a login item"
+    fi
+    unset found
   else
     warn "Couldn't find application '$(yellow "${app_path}")' and so skipping setting up as a login item"
   fi
@@ -84,14 +88,14 @@ else
 fi
 
 # Setup the login items once the full list of applications has been installed on the machine
-setup_login_item 'AlDente.app'
-setup_login_item 'Clocker.app'
-setup_login_item 'Ice.app'
-setup_login_item 'KeepingYouAwake.app'
-setup_login_item 'Keybase.app'
-setup_login_item 'Raycast.app'
-setup_login_item 'Stats.app'
-setup_login_item 'ZoomHider.app'
+setup_login_item 'AlDente'
+setup_login_item 'Clocker'
+setup_login_item 'Ice'
+setup_login_item 'KeepingYouAwake'
+setup_login_item 'Keybase'
+setup_login_item 'Raycast'
+setup_login_item 'Stats'
+setup_login_item 'ZoomHider'
 
 # Cleanup temp functions, etc
 unfunction setup_login_item

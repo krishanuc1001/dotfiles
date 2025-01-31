@@ -130,9 +130,9 @@ load_file_if_exists "${ZSH}/oh-my-zsh.sh"
 # Preferred editor for remote sessions
 test -n "${SSH_CONNECTION}" && export EDITOR="vi"
 # Use code if its installed (both Mac OSX and Linux)
-command_exists code && test -z "${EDITOR}" && export EDITOR="code --wait"
+command_exists code && ! is_non_zero_string "${EDITOR}" && export EDITOR="code --wait"
 # If neither of the above works, then fall back to vi
-command_exists vi && test -z "${EDITOR}" && export EDITOR="vi"
+command_exists vi && ! is_non_zero_string "${EDITOR}" && export EDITOR="vi"
 
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
@@ -190,6 +190,7 @@ if is_macos; then
   setopt no_case_glob             # case-insensitive globbing
   setopt hist_expire_dups_first   # expire duplicates first
   setopt hist_find_no_dups        # ignore duplicates when searching
+  setopt null_glob                # ignore errors when file globs don't match anything
 
   # console colors
   autoload -U colors && colors

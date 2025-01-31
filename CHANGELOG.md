@@ -2,6 +2,10 @@ As documented in the README's [adopting](README.md#how-to-adoptcustomize-the-scr
 
 For those who follow this repo, here's the changelog for ease of adoption:
 
+### 1.1-6
+
+* Minor refactoring to reuse utilize utility methods defined in `.shellrc`.
+
 ### 1.1-5
 
 * *[.cshrc]* Removed empty file
