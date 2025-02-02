@@ -144,23 +144,21 @@ if is_non_zero_string "${DOTFILES_DIR}" && ! is_git_repo "${DOTFILES_DIR}"; then
   # Note: Cloning with https since the ssh keys will not be present at this time
   clone_repo_into "https://github.com/${GH_USERNAME}/dotfiles" "${DOTFILES_DIR}" "${DOTFILES_BRANCH}"
 
-  append_to_path_if_dir_exists "${DOTFILES_DIR}/scripts"
-
   # Use the https protocol for pull, but use ssh/git for push
   git -C "${DOTFILES_DIR}" config url.ssh://git@github.com/.pushInsteadOf https://github.com/
 
-  install-dotfiles.rb
-
-  # Setup any sudo access password from cmd-line to also invoke the gui touchId prompt
-  approve-fingerprint-sudo.sh
+  append_to_path_if_dir_exists "${DOTFILES_DIR}/scripts"
 
   # Setup the DOTFILES_DIR repo's upstream if it doesn't already point to UPSTREAM_GH_USERNAME's repo
   add-upstream-git-config.sh "${DOTFILES_DIR}" "${UPSTREAM_GH_USERNAME}"
+
+  install-dotfiles.rb
 else
   warn "skipping cloning the dotfiles repo since '$(yellow "${DOTFILES_DIR}")' is either not defined or is already a git repo"
 fi
 
-! is_non_zero_string "${HOMEBREW_PREFIX}" && error "'HOMEBREW_PREFIX' env var is not set; something is wrong. Please correct before retrying!"
+# Setup any sudo access password from cmd-line to also invoke the gui touchId prompt
+approve-fingerprint-sudo.sh
 
 # Load all zsh config files for PATH and other env vars to take effect
 FIRST_INSTALL=true load_zsh_configs
@@ -169,6 +167,8 @@ FIRST_INSTALL=true load_zsh_configs
 # Install homebrew #
 ####################
 section_header "Installing homebrew into '$(yellow "${HOMEBREW_PREFIX}")'"
+! is_non_zero_string "${HOMEBREW_PREFIX}" && error "'HOMEBREW_PREFIX' env var is not set; something is wrong. Please correct before retrying!"
+
 if ! command_exists brew; then
   # Prep for installing homebrew
   sudo mkdir -p "${HOMEBREW_PREFIX}/tmp" "${HOMEBREW_PREFIX}/repository" "${HOMEBREW_PREFIX}/plugins" "${HOMEBREW_PREFIX}/bin"
@@ -223,7 +223,7 @@ if is_non_zero_string "${KEYBASE_USERNAME}"; then
     clone_repo_into "$(build_keybase_repo_url "${KEYBASE_PROFILES_REPO_NAME}")" "${PERSONAL_PROFILES_DIR}"
 
     # Clone the natsumi-browser repo into the ZenProfile/Profiles/DefaultProfile/chrome folder and switch to the 'dev' branch
-    local folder="${PERSONAL_PROFILES_DIR}/ZenProfile/"
+    local folder="${PERSONAL_PROFILES_DIR}/ZenProfile"
     if is_directory "${folder}"; then
       clone_repo_into "git@github.com:${UPSTREAM_GH_USERNAME}/natsumi-browser" "${folder}/Profiles/DefaultProfile/chrome" dev
     else
@@ -233,7 +233,7 @@ if is_non_zero_string "${KEYBASE_USERNAME}"; then
 
     # HACK: To fix issue where someone does not have any such 'DefaultProfile/chrome'.... (need to find a correct fix)
     # otherwise, the next 'for' loop fails and errors out
-    ensure_dir_exists "${PERSONAL_PROFILES_DIR}"/DummyProfile/Profiles/DefaultProfile/chrome
+    ensure_dir_exists "${PERSONAL_PROFILES_DIR}/DummyProfile/Profiles/DefaultProfile/chrome"
 
     for folder in "${PERSONAL_PROFILES_DIR}"/*Profile/Profiles/DefaultProfile/chrome; do
       # Setup the chrome repo's upstream if it doesn't already point to UPSTREAM_GH_USERNAME's repo
@@ -241,7 +241,7 @@ if is_non_zero_string "${KEYBASE_USERNAME}"; then
     done
     unset folder
 
-    rm -rf "${PERSONAL_PROFILES_DIR}"/DummyProfile/
+    rm -rf "${PERSONAL_PROFILES_DIR}/DummyProfile/"
   else
     warn "skipping cloning of profiles repo since either the '$(yellow 'KEYBASE_PROFILES_REPO_NAME')' or the '$(yellow 'PERSONAL_PROFILES_DIR')' env var hasn't been set"
   fi
