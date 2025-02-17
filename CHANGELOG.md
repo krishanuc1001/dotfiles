@@ -1,6 +1,10 @@
-As documented in the README's [adopting](README.md#how-to-adoptcustomize-the-scripts-to-your-own-settings) section, this repo and its scripts are aimed at developers/techies. If you are stuck or need help in any fashion, you can reach out to me at my email.
+As documented in the README's [adopting](README.md#how-to-adoptcustomize-the-scripts-to-your-own-settings) section, this repo and its scripts are aimed at developers/techies. If you are stuck or need help in any fashion, you can reach out to [owner of the the parent repo](https://github.com/vraravam/dotfiles) from where this was forked.
 
 For those who follow this repo, here's the changelog for ease of adoption:
+
+### 1.1-8
+
+* Minor cleanup (removed leftover references to Arc)
 
 ### 1.1-7
 

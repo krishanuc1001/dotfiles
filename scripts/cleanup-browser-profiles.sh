@@ -83,7 +83,7 @@ process_browser() {
   check_app "${1}" && vacuum_browser_profile_folder "$@"
 }
 
-# TODO: Commented out since I am moving away from Arc and will delete that folder completely
+# TODO: Commented out since I haven't tested that this works without losing auto-recreated data
 # process_browser arc "${PERSONAL_PROFILES_DIR}/ArcProfile"
 process_browser brave "${PERSONAL_PROFILES_DIR}/BraveProfile"
 # TODO: Commented out since I haven't tested that this works without losing auto-recreated data

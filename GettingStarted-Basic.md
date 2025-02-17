@@ -35,8 +35,8 @@ All these scripts are optimized for fast loading of the shell so that the user c
    * Search for 'Control Centre' and scroll down to 'Clock options' and change the built-in clock to show as analog to save horizontal space in the top menu bar
    * Search for 'Full Disk Access' and add `iTerm', 'Terminal', 'zoom.us'
    * Search for 'Keyboard' and enable Keyboard Navigation
-   * Search for 'Camera' and add 'Arc', 'Brave', 'Firefox', 'Zen', 'zoom.us'
-   * Search for 'Microphone' and add 'Arc', 'Brave', 'Firefox', 'Zen', 'zoom.us'
+   * Search for 'Camera' and add 'Brave', 'Firefox', 'Zen', 'zoom.us'
+   * Search for 'Microphone' and add 'Brave', 'Firefox', 'Zen', 'zoom.us'
    * Search for 'Close and restore windows', and uncheck 'Close windows when quitting an application' (this will ensure that iTerm, Terminal, all browsers, etc (whichever have multiple windows open while quitting that application), will restore the same windows and tabs the next time you start that application.)
    * Search for 'Default web browser' and set as per your preferences
    * Search for 'iCloud' and login and setup Desktop sync
