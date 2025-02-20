@@ -96,6 +96,21 @@ if is_macos && command_exists brew; then
   alias bcg='brew outdated --greedy'
   alias bcug='brew upgrade --greedy'
   alias bupc='brew bundle check || brew bundle --all --cleanup || true; brew bundle cleanup -f || true; brew cleanup --prune=all || true; brew autoremove || true; brew upgrade || true'
+
+  setup_login_item() {
+    local app_path="/Applications/${1}.app"
+    if is_directory "${app_path}"; then
+      local found=$(osascript -e 'tell application "System Events" to get the name of every login item' | \grep -i "${1}")
+      if ! is_non_zero_string "${found}"; then
+        osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"${app_path}\", hidden:false}" 2>&1 > /dev/null
+        success "Successfully setup '$(yellow "${1}")' as a login item"
+      fi
+      unset found
+    else
+      warn "Couldn't find application '$(yellow "${app_path}")' and so skipping setting up as a login item"
+    fi
+    unset app_path
+  }
 fi
 
 alias findbrokenlinks='find . -type l | (while read FN ; do test -e "${FN}" || ls -ld "${FN}"; done)'

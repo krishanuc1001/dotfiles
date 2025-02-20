@@ -5,21 +5,7 @@
 # This script is used to run some commands at the end of the 'brew bundle' command. They are not inlined into the Brewfile due to the need to escape quoted strings.
 
 type section_header &> /dev/null 2>&1 || source "${HOME}/.shellrc"
-
-setup_login_item() {
-  local app_path="/Applications/${1}.app"
-  if is_directory "${app_path}"; then
-    local found=$(osascript -e 'tell application "System Events" to get the name of every login item' | \grep -i "${1}")
-    if ! is_non_zero_string "${found}"; then
-      osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"${app_path}\", hidden:false}" 2>&1 > /dev/null
-      success "Successfully setup '$(yellow "${1}")' as a login item"
-    fi
-    unset found
-  else
-    warn "Couldn't find application '$(yellow "${app_path}")' and so skipping setting up as a login item"
-  fi
-  unset app_path
-}
+type setup_login_item &> /dev/null 2>&1 || source "${HOME}/.aliases"
 
 replace_executable_if_exists_and_is_not_symlinked() {
   is_executable "${2}" && return
@@ -88,15 +74,7 @@ else
 fi
 
 # Setup the login items once the full list of applications has been installed on the machine
-setup_login_item 'AlDente'
-setup_login_item 'Clocker'
-setup_login_item 'Ice'
-setup_login_item 'KeepingYouAwake'
-setup_login_item 'Keybase'
-setup_login_item 'Raycast'
-setup_login_item 'Stats'
 setup_login_item 'ZoomHider'
 
 # Cleanup temp functions, etc
-unfunction setup_login_item
 unfunction replace_executable_if_exists_and_is_not_symlinked

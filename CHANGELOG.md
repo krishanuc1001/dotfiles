@@ -2,9 +2,13 @@ As documented in the README's [adopting](README.md#how-to-adoptcustomize-the-scr
 
 For those who follow this repo, here's the changelog for ease of adoption:
 
+### 1.1-9
+
+* Moved setting up of login items into the `Brewfile` so that can be managed along with the cask block itself.
+
 ### 1.1-8
 
-* Minor cleanup (removed leftover references to Arc)
+* Minor cleanup (removed leftover references to Arc).
 
 ### 1.1-7
 

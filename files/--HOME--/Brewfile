@@ -54,7 +54,7 @@ brew 'powerlevel10k'
 # casks pulled in for base configs (if these are absent, you will get errors and things won't work)
 cask 'font-meslo-lg-nerd-font'
 cask 'iterm2'
-cask 'keybase'
+cask 'keybase', postinstall: "type setup_login_item &> /dev/null 2>&1 || source \"${HOME}/.aliases\"; setup_login_item 'Keybase'"
 
 return true if is_base_install
 
@@ -70,14 +70,14 @@ brew 'ripgrep'
 brew 'syncthing'
 brew 'tldr'
 
-cask 'aldente'
+cask 'aldente', postinstall: "type setup_login_item &> /dev/null 2>&1 || source \"${HOME}/.aliases\"; setup_login_item 'AlDente'"
 cask 'appcleaner'
 cask 'brave-browser'
-cask 'clocker'
+cask 'clocker', postinstall: "type setup_login_item &> /dev/null 2>&1 || source \"${HOME}/.aliases\"; setup_login_item 'Clocker'"
 cask 'firefox@nightly' #, greedy: true
-cask 'jordanbaird-ice'
+cask 'jordanbaird-ice', postinstall: "type setup_login_item &> /dev/null 2>&1 || source \"${HOME}/.aliases\"; setup_login_item 'Ice'"
 cask 'keepassxc@beta'
-cask 'keepingyouawake'
+cask 'keepingyouawake', postinstall: "type setup_login_item &> /dev/null 2>&1 || source \"${HOME}/.aliases\"; setup_login_item 'KeepingYouAwake'"
 cask 'keycastr'
 cask 'keyclu' if is_arm
 cask 'monolingual'
@@ -87,9 +87,9 @@ cask 'onlyoffice'
 cask 'onyx'
 cask 'protonvpn'
 cask 'rancher'
-cask 'raycast'
+cask 'raycast', postinstall: "type setup_login_item &> /dev/null 2>&1 || source \"${HOME}/.aliases\"; setup_login_item 'Raycast'"
 cask 'silicon' if is_arm
-cask 'stats'
+cask 'stats', postinstall: "type setup_login_item &> /dev/null 2>&1 || source \"${HOME}/.aliases\"; setup_login_item 'Stats'"
 cask 'the-unarchiver'
 cask 'vscodium@insiders'   # TODO: Doesn't handle 'Remote Containers' and GH-based auto-syncing when compared to VSCode
 cask 'zen-browser@twilight'
